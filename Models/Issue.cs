@@ -8,20 +8,21 @@ public class Issue
 
     [Required]
     [StringLength(100)]
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
     [Required]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     [Required]
-    public string Category { get; set; }  // Electricity, Water, Supplies, etc.
+    public string Category { get; set; } = string.Empty;
 
-    public string Status { get; set; }    // Pending, InProgress, Resolved
+    public string Status { get; set; } = "Pending";
+
     public DateTime CreatedDate { get; set; }
     public DateTime? ResolvedDate { get; set; }
 
-    public string ApartmentNumber { get; set; }
-    public string TenantId { get; set; }
-    public ApplicationUser Tenant { get; set; }
-    public Feedback Feedback { get; set; }
+    public string ApartmentNumber { get; set; } = string.Empty;
+    public string TenantId { get; set; } = string.Empty;
+    public ApplicationUser? Tenant { get; set; }
+    public Feedback? Feedback { get; set; }
 }
