@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\tenant-issue-tracker.props" />
+</Project>
