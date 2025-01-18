@@ -12,7 +12,7 @@ using TenantIssueTracker.Data;
 namespace tenant_issue_tracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250117133805_InitialCreate")]
+    [Migration("20250118122949_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
