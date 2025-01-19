@@ -1,10 +1,22 @@
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
-namespace TenantIssueTracker.Models;
-
-public class ApplicationUser : IdentityUser
+namespace TenantIssueTracker.Models
 {
-    public string ApartmentNumber { get; set; } = string.Empty;
-    public bool IsCaretaker { get; set; }
-    public ICollection<Issue> Issues { get; set; } = new List<Issue>();
+    public class ApplicationUser : IdentityUser
+    {
+        [Required]
+        [PersonalData]
+        public string FirstName { get; set; } = string.Empty;
+
+        [Required]
+        [PersonalData]
+        public string LastName { get; set; } = string.Empty;
+
+        [Required]
+        [PersonalData]
+        public string ApartmentNumber { get; set; } = string.Empty;
+
+        public virtual ICollection<Issue> Issues { get; set; } = new List<Issue>();
+    }
 }
