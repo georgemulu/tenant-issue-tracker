@@ -17,6 +17,9 @@ namespace TenantIssueTracker.Models
         [PersonalData]
         public string ApartmentNumber { get; set; } = string.Empty;
 
+        public string Name { get; set; } = string.Empty;
+
+
         public virtual ICollection<Issue> Issues { get; set; } = new List<Issue>();
     }
 }

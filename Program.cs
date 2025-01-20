@@ -28,6 +28,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts(); // HSTS for production
 }
 
+// Add this after your existing service configurations
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    await RoleSeeder.SeedRoles(roleManager);
+}
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles(); // Enable serving static files

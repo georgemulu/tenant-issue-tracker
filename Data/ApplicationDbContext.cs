@@ -13,6 +13,7 @@ namespace TenantIssueTracker.Data
 
         public DbSet<Issue> Issues { get; set; } = null!;
         public DbSet<Feedback> Feedback { get; set; } = null!;
+        public DbSet<Comment> Comments { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,18 @@ namespace TenantIssueTracker.Data
                 .WithOne(i => i.Feedback)
                 .HasForeignKey<Feedback>(f => f.IssueId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+                modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Issue)
+                .WithMany(i => i.Comments)
+                .HasForeignKey(c => c.IssueId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+                modelBuilder.Entity<Comment>()
+                .HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Configure Issue entity
             // Configure Issue entity

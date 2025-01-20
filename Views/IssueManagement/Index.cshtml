@@ -1,0 +1,60 @@
+@using TenantIssueTracker.Models
+@model IEnumerable<TenantIssueTracker.Models.Issue>
+
+@{
+    ViewData["Title"] = "Issue Management";
+}
+
+<div class="container">
+    <h2>Issue Management</h2>
+
+    <div class="row mb-3">
+        <div class="col">
+            <div class="btn-group" role="group">
+                <a href="#" class="btn btn-outline-primary active">All</a>
+                <a href="#" class="btn btn-outline-primary">Pending</a>
+                <a href="#" class="btn btn-outline-primary">In Progress</a>
+                <a href="#" class="btn btn-outline-primary">Resolved</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Tenant</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Created Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td>@item.Tenant.Name</td>
+                        <td>
+                            <span class="badge bg-@(item.Status switch {
+                                IssueStatus.Pending => "warning",
+                                IssueStatus.InProgress => "primary",
+                                IssueStatus.Resolved => "success",
+                                _ => "secondary"
+                            })">@item.Status</span>
+                        </td>
+                        <td>@item.Priority</td>
+                        <td>@item.CreatedDate.ToString("MMM dd, yyyy")</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

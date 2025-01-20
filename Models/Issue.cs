@@ -29,5 +29,7 @@ namespace TenantIssueTracker.Models
         // Navigation Properties
         public virtual ApplicationUser Tenant { get; set; } = null!;
         public virtual Feedback? Feedback { get; set; }
+        // Add this to your Issue.cs model
+        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
