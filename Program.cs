@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using TenantIssueTracker.Data;
 using TenantIssueTracker.Models;
+using TenantIssueTracker.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,17 +12,36 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Configure Identity
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+// Configure Identity with roles
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
 })
-.AddEntityFrameworkStores<ApplicationDbContext>();
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+// Add a dummy EmailSender service
+builder.Services.AddSingleton<IEmailSender, NullEmailSender>();
 
 // Add Razor Pages
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+// Add this after your app.Build() line
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        await TenantIssueTracker.Data.RoleSeeder.SeedRoles(roleManager);
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding roles");
+        throw;
+    }
+}
 
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
@@ -32,7 +54,8 @@ if (!app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    await RoleSeeder.SeedRoles(roleManager);
+    await TenantIssueTracker.Data.RoleSeeder.SeedRoles(roleManager);
+
 }
 
 app.UseHttpsRedirection();
@@ -47,3 +70,5 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+

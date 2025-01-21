@@ -1,0 +1,44 @@
+@model IEnumerable<TenantIssueTracker.Models.Feedback>
+
+@{
+    ViewData["Title"] = "Feedback Overview";
+}
+
+<div class="container mt-4">
+    <h2>Feedback Overview</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Issue Title</th>
+                    <th>Tenant</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var feedback in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Issues" asp-action="Details" asp-route-id="@feedback.IssueId">
+                                @feedback.Issue.Title
+                            </a>
+                        </td>
+                        <td>@feedback.Issue.Tenant.UserName</td>
+                        <td>
+                            @for (int i = 0; i < feedback.Rating; i++)
+                            {
+                                <i class="fas fa-star text-warning"></i>
+                            }
+                        </td>
+                        <td>@feedback.Comment</td>
+                        <td>@feedback.CreatedDate.ToString("MMM dd, yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
