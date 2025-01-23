@@ -27,13 +27,13 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Add this after your app.Build() line
+// Seed roles using the RoleSeeder
 using (var scope = app.Services.CreateScope())
 {
     try
     {
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        await TenantIssueTracker.Data.RoleSeeder.SeedRoles(roleManager);
+        await RoleSeeder.SeedRoles(roleManager); // Use the RoleSeeder class
     }
     catch (Exception ex)
     {
@@ -55,5 +55,6 @@ app.UseStaticFiles(); // Enable serving static files
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapRazorPages();
 app.Run();

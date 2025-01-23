@@ -88,6 +88,10 @@ namespace tenant_issue_tracker.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; } = string.Empty;
+
+            [Required]
+            [Display(Name = "Role")]
+            public string Role { get; set; } = string.Empty; // Add this property
         }
 
         public async Task OnGetAsync(string? returnUrl = null)
@@ -118,13 +122,13 @@ namespace tenant_issue_tracker.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    // Assign the Tenant role by default
-                    await _userManager.AddToRoleAsync(user, "Tenant");
+                    // Assign the selected role
+                    await _userManager.AddToRoleAsync(user, Input.Role);
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    
+
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
@@ -146,7 +150,16 @@ namespace tenant_issue_tracker.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+
+                        // Redirect based on the selected role
+                        if (Input.Role == "Tenant")
+                        {
+                            return LocalRedirect("/Tenant/SubmitIssue");
+                        }
+                        else if (Input.Role == "Caretaker")
+                        {
+                            return LocalRedirect("/Caretaker/Dashboard");
+                        }
                     }
                 }
                 foreach (var error in result.Errors)

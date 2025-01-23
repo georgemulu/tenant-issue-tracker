@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TenantIssueTracker.Data;
@@ -5,6 +6,7 @@ using TenantIssueTracker.Models;
 
 namespace TenantIssueTracker.Pages.Caretaker
 {
+    [Authorize(Roles = "Caretaker")]
     public class DashboardModel : PageModel
     {
         private readonly ApplicationDbContext _dbContext;
@@ -14,7 +16,7 @@ namespace TenantIssueTracker.Pages.Caretaker
             _dbContext = dbContext;
         }
 
-        public required CaretakerDashboardViewModel DashboardData { get; set; }
+        public CaretakerDashboardViewModel DashboardData { get; set; } = new();
 
         public async Task OnGetAsync()
         {

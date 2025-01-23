@@ -19,7 +19,7 @@ namespace TenantIssueTracker.Pages.Caretaker
 
         public async Task OnGetAsync()
         {
-            // Fetch issues from the database
+            // Fetch all issues from the database
             Issues = await _dbContext.Issues.ToListAsync();
         }
 
@@ -32,6 +32,14 @@ namespace TenantIssueTracker.Pages.Caretaker
                 // Mark the issue as resolved
                 issue.IsResolved = true;
                 await _dbContext.SaveChangesAsync();
+
+                // Set a success message
+                TempData["Success"] = "Issue resolved successfully!";
+            }
+            else
+            {
+                // Set an error message if the issue is not found
+                TempData["Error"] = "Issue not found.";
             }
 
             // Redirect back to the same page

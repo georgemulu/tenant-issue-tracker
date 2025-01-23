@@ -1,18 +1,18 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TenantIssueTracker.Models;
 
 namespace TenantIssueTracker.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
-        // Define your DbSet properties here
         public DbSet<Issue> Issues { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
 
-        // Optionally, you can override the OnModelCreating method to configure the model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

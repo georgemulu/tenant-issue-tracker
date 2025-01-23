@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace TenantIssueTracker.Data
 {
@@ -6,16 +7,15 @@ namespace TenantIssueTracker.Data
     {
         public static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
         {
-            // Define your roles
-            string[] roleNames = { "Admin", "Tenant", "Caretaker" };
+            string[] roles = { "Caretaker", "Tenant" };
 
-            foreach (var roleName in roleNames)
+            foreach (var role in roles)
             {
-                // Check if role already exists
-                if (!await roleManager.RoleExistsAsync(roleName))
+                // Check if the role already exists
+                if (!await roleManager.RoleExistsAsync(role))
                 {
-                    // Create role if it doesn't exist
-                    await roleManager.CreateAsync(new IdentityRole(roleName));
+                    // Create the role if it doesn't exist
+                    await roleManager.CreateAsync(new IdentityRole(role));
                 }
             }
         }

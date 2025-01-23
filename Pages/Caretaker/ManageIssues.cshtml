@@ -1,5 +1,4 @@
 @page
-@using TenantIssueTracker.Models
 @model TenantIssueTracker.Pages.Caretaker.ManageIssuesModel
 @{
     ViewData["Title"] = "Manage Issues";
@@ -8,12 +7,28 @@
 <div class="container">
     <h2>Manage Issues</h2>
 
+    <!-- Display success/error messages -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
     <table class="table">
         <thead>
             <tr>
-                <th>Tenant</th>
-                <th>Apartment</th>
+                <th>Tenant Name</th>
+                <th>Apartment Number</th>
                 <th>Description</th>
+                <th>Category</th>
+                <th>Reported Date</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -25,12 +40,14 @@
                     <td>@issue.TenantName</td>
                     <td>@issue.ApartmentNumber</td>
                     <td>@issue.Description</td>
+                    <td>@issue.Category</td>
+                    <td>@issue.ReportedDate.ToShortDateString()</td>
                     <td>@(issue.IsResolved ? "Resolved" : "Pending")</td>
                     <td>
                         @if (!issue.IsResolved)
                         {
                             <form method="post" asp-page-handler="ResolveIssue" asp-route-id="@issue.Id">
-                                <button class="btn btn-success btn-sm">Mark Resolved</button>
+                                <button type="submit" class="btn btn-success btn-sm">Mark Resolved</button>
                             </form>
                         }
                     </td>

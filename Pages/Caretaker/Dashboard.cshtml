@@ -1,11 +1,3 @@
-@page
-@using TenantIssueTracker.Models
-@model CaretakerDashboardViewModel
-
-@{
-    ViewData["Title"] = "Caretaker Dashboard";
-}
-
 <div class="container">
     <h2>Caretaker Dashboard</h2>
 
@@ -33,6 +25,16 @@
                     <p class="card-text">@Model.FeedbackCount</p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <a asp-page="/Caretaker/ManageIssues" class="btn btn-primary btn-block">Manage Issues</a>
+        </div>
+        <div class="col-md-6">
+            <a asp-page="/Caretaker/ViewFeedback" class="btn btn-secondary btn-block">View Feedback</a>
         </div>
     </div>
 </div>
