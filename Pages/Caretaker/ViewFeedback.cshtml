@@ -1,10 +1,8 @@
-@model List<TenantIssueTracker.Models.Feedback>
-
+@page
+@model TenantIssueTracker.Pages.Caretaker.ViewFeedbackModel
 @{
-    ViewData["Title"] = "Feedback List";
+    ViewData["Title"] = "View Feedback";
 }
-
-<h2>Feedback List</h2>
 
 <table class="table">
     <thead>
@@ -16,13 +14,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var feedback in Model)
+        @foreach (var feedback in Model.Feedbacks)
         {
             <tr>
                 <td>@feedback.TenantName</td>
                 <td>@feedback.ApartmentNumber</td>
                 <td>@feedback.Content</td>
-                <td>@feedback.SubmittedOn.ToShortDateString()</td>
+                <td>@feedback.SubmittedOn</td>
             </tr>
         }
     </tbody>

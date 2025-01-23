@@ -1,17 +1,18 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using TenantIssueTracker.Models;
 
-namespace TenantIssueTracker.Controllers
+namespace TenantIssueTracker.Pages.Caretaker
 {
     [Authorize(Roles = ApplicationRoles.Admin)]
-    public class CaretakerController : Controller
+    public class CaretakerModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public CaretakerController(
+        public CaretakerModel(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
@@ -19,44 +20,10 @@ namespace TenantIssueTracker.Controllers
             _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> OnGetAsync()
         {
-            var caretakers = _userManager.GetUsersInRoleAsync(ApplicationRoles.Caretaker).Result;
-            return View(caretakers);
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RegisterCaretakerViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser 
-                { 
-                    UserName = model.Email, 
-                    Email = model.Email,
-                    Name = model.Name
-                };
-
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, ApplicationRoles.Caretaker);
-                    return RedirectToAction(nameof(Index));
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-
-            return View(model);
+            var caretakers = await _userManager.GetUsersInRoleAsync(ApplicationRoles.Caretaker);
+            return Page();
         }
     }
 }

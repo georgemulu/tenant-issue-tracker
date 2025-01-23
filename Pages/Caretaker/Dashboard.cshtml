@@ -1,0 +1,38 @@
+@page
+@using TenantIssueTracker.Models
+@model CaretakerDashboardViewModel
+
+@{
+    ViewData["Title"] = "Caretaker Dashboard";
+}
+
+<div class="container">
+    <h2>Caretaker Dashboard</h2>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Issues</h5>
+                    <p class="card-text">@Model.TotalIssues</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Resolved Issues</h5>
+                    <p class="card-text">@Model.ResolvedIssues</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Feedbacks</h5>
+                    <p class="card-text">@Model.FeedbackCount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -188,12 +188,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hp/tenant-issue-tracker/Pages/Caretaker/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FyZXRha2VyXENyZWF0ZS5jc2h0bWw=
+[C:/Users/hp/tenant-issue-tracker/Pages/Caretaker/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FyZXRha2VyXERhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hp/tenant-issue-tracker/Pages/Caretaker/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FyZXRha2VyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hp/tenant-issue-tracker/Pages/Caretaker/ManageIssues.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FyZXRha2VyXE1hbmFnZUlzc3Vlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hp/tenant-issue-tracker/Pages/Caretaker/ViewFeedback.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FyZXRha2VyXFZpZXdGZWVkYmFjay5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hp/tenant-issue-tracker/Pages/Error.cshtml]
@@ -210,10 +218,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/hp/tenant-issue-tracker/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/hp/tenant-issue-tracker/Pages/IssueManagement/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSXNzdWVNYW5hZ2VtZW50XERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hp/tenant-issue-tracker/Pages/IssueManagement/Index.cshtml]

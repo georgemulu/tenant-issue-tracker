@@ -5,7 +5,6 @@ using TenantIssueTracker.Data;
 using TenantIssueTracker.Models;
 using TenantIssueTracker.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Entity Framework and ApplicationDbContext
@@ -27,6 +26,7 @@ builder.Services.AddSingleton<IEmailSender, NullEmailSender>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
 // Add this after your app.Build() line
 using (var scope = app.Services.CreateScope())
 {
@@ -50,25 +50,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts(); // HSTS for production
 }
 
-// Add this after your existing service configurations
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    await TenantIssueTracker.Data.RoleSeeder.SeedRoles(roleManager);
-
-}
-
 app.UseHttpsRedirection();
-
 app.UseStaticFiles(); // Enable serving static files
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapRazorPages();
-
 app.Run();
-
-

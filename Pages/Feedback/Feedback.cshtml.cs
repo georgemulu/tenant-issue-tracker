@@ -27,7 +27,8 @@ public class FeedbackController : Controller
             return NotFound();
         }
 
-        if (issue.Status != IssueStatus.Resolved)
+        // Check if the issue is resolved
+        if (!issue.IsResolved)
         {
             TempData["Error"] = "Feedback can only be provided for resolved issues.";
             return RedirectToAction("Index", "Issues");
@@ -35,7 +36,9 @@ public class FeedbackController : Controller
 
         var feedback = new Feedback
         {
-            IssueId = issueId
+            IssueId = issueId,
+            TenantName = issue.TenantName, // Pre-fill tenant name from the issue
+            ApartmentNumber = issue.ApartmentNumber // Pre-fill apartment number from the issue
         };
 
         return View(feedback);
@@ -44,28 +47,32 @@ public class FeedbackController : Controller
     [HttpPost]
     [Authorize(Roles = "Tenant")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("IssueId,Comment,Rating")] Feedback feedback)
+    public async Task<IActionResult> Create([Bind("IssueId,TenantName,ApartmentNumber,Content")] Feedback feedback)
     {
         if (ModelState.IsValid)
         {
+            // Set additional properties
+            feedback.SubmittedOn = DateTime.Now;
             feedback.CreatedDate = DateTime.Now;
+
             _context.Add(feedback);
             await _context.SaveChangesAsync();
+
             TempData["Success"] = "Feedback submitted successfully!";
             return RedirectToAction("Index", "Issues");
         }
+
         return View(feedback);
     }
 
     [Authorize(Roles = "Caretaker")]
     public async Task<IActionResult> Index()
     {
-    var feedbacks = await _context.Feedback
-        .Include(f => f.Issue)
-            .ThenInclude(i => i.Tenant)
-        .OrderByDescending(f => f.CreatedDate)
-        .ToListAsync();
+        var feedbacks = await _context.Feedbacks
+            .Include(f => f.Issue) // Include the related issue
+            .OrderByDescending(f => f.CreatedDate) // Order by creation date
+            .ToListAsync();
 
-    return View(feedbacks);
+        return View(feedbacks);
     }
 }

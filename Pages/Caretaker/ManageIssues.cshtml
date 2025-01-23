@@ -1,0 +1,41 @@
+@page
+@using TenantIssueTracker.Models
+@model TenantIssueTracker.Pages.Caretaker.ManageIssuesModel
+@{
+    ViewData["Title"] = "Manage Issues";
+}
+
+<div class="container">
+    <h2>Manage Issues</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tenant</th>
+                <th>Apartment</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var issue in Model.Issues)
+            {
+                <tr>
+                    <td>@issue.TenantName</td>
+                    <td>@issue.ApartmentNumber</td>
+                    <td>@issue.Description</td>
+                    <td>@(issue.IsResolved ? "Resolved" : "Pending")</td>
+                    <td>
+                        @if (!issue.IsResolved)
+                        {
+                            <form method="post" asp-page-handler="ResolveIssue" asp-route-id="@issue.Id">
+                                <button class="btn btn-success btn-sm">Mark Resolved</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

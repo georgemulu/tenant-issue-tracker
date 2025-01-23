@@ -1,60 +1,35 @@
-@using TenantIssueTracker.Models
-@model IEnumerable<TenantIssueTracker.Models.Issue>
-
+@page
+@model TenantIssueTracker.Pages.IssueManagement.IndexModel
 @{
-    ViewData["Title"] = "Issue Management";
+    ViewData["Title"] = "Issues";
 }
 
 <div class="container">
-    <h2>Issue Management</h2>
+    <h2>Issues</h2>
 
-    <div class="row mb-3">
-        <div class="col">
-            <div class="btn-group" role="group">
-                <a href="#" class="btn btn-outline-primary active">All</a>
-                <a href="#" class="btn btn-outline-primary">Pending</a>
-                <a href="#" class="btn btn-outline-primary">In Progress</a>
-                <a href="#" class="btn btn-outline-primary">Resolved</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tenant Name</th>
+                <th>Apartment Number</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Reported Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var issue in Model.Issues)
+            {
                 <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Tenant</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Created Date</th>
-                    <th>Actions</th>
+                    <td>@issue.TenantName</td>
+                    <td>@issue.ApartmentNumber</td>
+                    <td>@issue.Description</td>
+                    <td>@issue.Category</td>
+                    <td>@issue.ReportedDate.ToShortDateString()</td>
+                    <td>@(issue.IsResolved ? "Resolved" : "Pending")</td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.Title</td>
-                        <td>@item.Tenant.Name</td>
-                        <td>
-                            <span class="badge bg-@(item.Status switch {
-                                IssueStatus.Pending => "warning",
-                                IssueStatus.InProgress => "primary",
-                                IssueStatus.Resolved => "success",
-                                _ => "secondary"
-                            })">@item.Status</span>
-                        </td>
-                        <td>@item.Priority</td>
-                        <td>@item.CreatedDate.ToString("MMM dd, yyyy")</td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Details</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
 </div>
