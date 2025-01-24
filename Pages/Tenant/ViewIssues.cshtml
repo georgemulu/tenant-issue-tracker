@@ -1,0 +1,29 @@
+@page
+@model TenantIssueTracker.Pages.Tenant.ViewIssuesModel
+@{
+    ViewData["Title"] = "View My Issues";
+}
+
+<h1>View My Issues</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Reported Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var issue in Model.Issues)
+        {
+            <tr>
+                <td>@issue.Description</td>
+                <td>@issue.Category</td>
+                <td>@issue.ReportedDate.ToShortDateString()</td>
+                <td>@(issue.IsResolved ? "Resolved" : "Pending")</td>
+            </tr>
+        }
+    </tbody>
+</table>

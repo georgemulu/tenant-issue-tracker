@@ -17,6 +17,20 @@ namespace TenantIssueTracker.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configure the relationship between Issue and ApplicationUser
+            modelBuilder.Entity<Issue>()
+                .HasOne(i => i.ApplicationUser) // Issue has one ApplicationUser
+                .WithMany(u => u.Issues) // ApplicationUser can have many Issues
+                .HasForeignKey(i => i.ApplicationUserId) // Foreign key in Issue
+                .OnDelete(DeleteBehavior.Restrict); // Disable cascading delete
+
+            // Configure the relationship between Feedback and Issue
+            modelBuilder.Entity<Feedback>()
+                .HasOne(f => f.Issue) // Feedback has one Issue
+                .WithMany(i => i.Feedbacks) // Issue can have many Feedbacks
+                .HasForeignKey(f => f.IssueId) // Foreign key in Feedback
+                .OnDelete(DeleteBehavior.Cascade); // Allow cascading delete for Issue -> Feedbacks
+
             // Configure your entities here if needed
             modelBuilder.Entity<Issue>(entity =>
             {
@@ -25,7 +39,6 @@ namespace TenantIssueTracker.Data
                 entity.Property(e => e.Category).IsRequired();
                 entity.Property(e => e.ReportedDate).IsRequired();
                 entity.Property(e => e.IsResolved).IsRequired();
-                entity.Property(e => e.Feedback).IsRequired(false); // Feedback is optional
             });
 
             modelBuilder.Entity<Feedback>(entity =>

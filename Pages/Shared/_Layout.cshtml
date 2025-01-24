@@ -45,13 +45,13 @@
                                     <a class="nav-link" href="/Caretaker/Dashboard">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Caretaker/ViewAllIssues">View All Issues</a>
+                                    <a class="nav-link" href="/Caretaker/ManageIssues">View All Issues</a>
                                 </li>
                             }
                         }
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/Account/Manage">Profile</a>
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a>
                         </li>
                         <li class="nav-item">
                             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
@@ -62,10 +62,10 @@
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link" href="/Account/Register">Register</a>
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Account/Login">Login</a>
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
                         </li>
                     }
                 </ul>

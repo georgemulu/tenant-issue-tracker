@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace tenant_issue_tracker.Migrations
 {
     /// <inheritdoc />
-    public partial class InitlaCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -173,7 +173,7 @@ namespace tenant_issue_tracker.Migrations
                     ReportedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsResolved = table.Column<bool>(type: "bit", nullable: false),
                     Feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -182,7 +182,8 @@ namespace tenant_issue_tracker.Migrations
                         name: "FK_Issues_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -195,8 +196,8 @@ namespace tenant_issue_tracker.Migrations
                     ApartmentNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SubmittedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IssueId = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IssueId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

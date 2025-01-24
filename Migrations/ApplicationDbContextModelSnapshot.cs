@@ -285,6 +285,7 @@ namespace tenant_issue_tracker.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Category")
@@ -369,7 +370,7 @@ namespace tenant_issue_tracker.Migrations
             modelBuilder.Entity("TenantIssueTracker.Models.Feedback", b =>
                 {
                     b.HasOne("TenantIssueTracker.Models.Issue", "Issue")
-                        .WithMany()
+                        .WithMany("Feedbacks")
                         .HasForeignKey("IssueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -379,14 +380,23 @@ namespace tenant_issue_tracker.Migrations
 
             modelBuilder.Entity("TenantIssueTracker.Models.Issue", b =>
                 {
-                    b.HasOne("TenantIssueTracker.Models.ApplicationUser", null)
+                    b.HasOne("TenantIssueTracker.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Issues")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("TenantIssueTracker.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Issues");
+                });
+
+            modelBuilder.Entity("TenantIssueTracker.Models.Issue", b =>
+                {
+                    b.Navigation("Feedbacks");
                 });
 #pragma warning restore 612, 618
         }

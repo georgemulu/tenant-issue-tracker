@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tenant-issue-tracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+de1de014b634a334a46b073e193702a9816963be")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7210ef5140c39ab3a0b145f03f456951f6290aa9")]
 [assembly: System.Reflection.AssemblyProductAttribute("tenant-issue-tracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tenant-issue-tracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
