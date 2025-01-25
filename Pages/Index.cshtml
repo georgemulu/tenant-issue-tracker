@@ -1,8 +1,11 @@
 ﻿@page
-@model IndexModel
+@model tenant_issue_tracker.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout"; 
 }
 
-<h1>Welcome to Tenant Issue Tracker</h1>
-<p>Learn about building Web apps with ASP.NET Core.</p>
+<div class="text-center">
+    <h1 class="display-4">Welcome to Tenant Issue Tracker</h1>
+    <p>Track and manage tenant issues efficiently.</p>
+</div>
