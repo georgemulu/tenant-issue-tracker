@@ -18,13 +18,19 @@
     </thead>
     <tbody>
         @foreach (var issue in Model.Issues)
-        {
-            <tr>
-                <td>@issue.Description</td>
-                <td>@issue.Category</td>
-                <td>@issue.ReportedDate.ToShortDateString()</td>
-                <td>@(issue.IsResolved ? "Resolved" : "Pending")</td>
-            </tr>
-        }
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">@issue.Title</h5>
+            <p class="card-text">@issue.Description</p>
+            <p class="card-text"><small class="text-muted">Status: @(issue.IsResolved ? "Resolved" : "Pending")</small></p>
+
+            @if (issue.IsResolved)
+            {
+                <a asp-page="/Tenant/SubmitFeedback" asp-route-issueId="@issue.Id" class="btn btn-primary">Submit Feedback</a>
+            }
+        </div>
+    </div>
+}
     </tbody>
 </table>

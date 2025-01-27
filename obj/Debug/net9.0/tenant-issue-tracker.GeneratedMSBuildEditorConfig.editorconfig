@@ -204,14 +204,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hp/tenant-issue-tracker/Pages/Feedback/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmVlZGJhY2tcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/hp/tenant-issue-tracker/Pages/Feedback/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmVlZGJhY2tcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/hp/tenant-issue-tracker/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -226,6 +218,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/hp/tenant-issue-tracker/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hp/tenant-issue-tracker/Pages/Tenant/SubmitFeedback.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVuYW50XFN1Ym1pdEZlZWRiYWNrLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hp/tenant-issue-tracker/Pages/Tenant/Submitissue.cshtml]

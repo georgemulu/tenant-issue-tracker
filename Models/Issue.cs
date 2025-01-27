@@ -1,25 +1,31 @@
 using System;
 using System.Collections.Generic;
-using TenantIssueTracker.Models; // Ensure this is included
+using System.ComponentModel.DataAnnotations;
+using TenantIssueTracker.Models;
 
-namespace TenantIssueTracker.Models
+public class Issue
 {
-    public class Issue
-    {
-        public int Id { get; set; }
-        public string TenantName { get; set; } = string.Empty;
-        public string ApartmentNumber { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
-        public DateTime ReportedDate { get; set; }
-        public bool IsResolved { get; set; }
-        public string? Feedback { get; set; }
+    public int Id { get; set; }
 
-        // Relationship to ApplicationUser
-        public string ApplicationUserId { get; set; } = string.Empty;
-        public ApplicationUser ApplicationUser { get; set; } = null!;
+    [Required]
+    public string Title { get; set; } = string.Empty; // Initialize to empty string
 
-        // Relationship to Feedbacks
-        public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
-    }
+    [Required]
+    public string Description { get; set; } = string.Empty; // Initialize to empty string
+
+    [Required]
+    public string Category { get; set; } = string.Empty; // Initialize to empty string
+
+    [Required]
+    public DateTime ReportedDate { get; set; } = DateTime.UtcNow;
+
+    [Required]
+    public bool IsResolved { get; set; } = false;
+
+    // Foreign key to ApplicationUser
+    public string ApplicationUserId { get; set; } = string.Empty; // Initialize to empty string
+
+    // Navigation properties
+    public ApplicationUser ApplicationUser { get; set; } = new ApplicationUser(); // Initialize
+    public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>(); // Initialize
 }

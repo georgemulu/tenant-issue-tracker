@@ -37,8 +37,8 @@
             @foreach (var issue in Model.Issues)
             {
                 <tr>
-                    <td>@issue.TenantName</td>
-                    <td>@issue.ApartmentNumber</td>
+                    <td>@issue.ApplicationUser.FirstName @issue.ApplicationUser.LastName</td> <!-- Use ApplicationUser navigation property -->
+                    <td>@issue.ApplicationUser.ApartmentNumber</td> <!-- Use ApplicationUser navigation property -->
                     <td>@issue.Description</td>
                     <td>@issue.Category</td>
                     <td>@issue.ReportedDate.ToShortDateString()</td>

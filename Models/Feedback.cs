@@ -4,24 +4,26 @@ using System.ComponentModel.DataAnnotations;
 namespace TenantIssueTracker.Models
 {
     public class Feedback
-    {
-        public int Id { get; set; }
+{
+    public int Id { get; set; }
 
-        [Required]
-        public string TenantName { get; set; } = string.Empty;
+    [Required]
+    public string TenantId { get; set; } = string.Empty; // Initialize to empty string
 
-        [Required]
-        public string ApartmentNumber { get; set; } = string.Empty;
+    [Required]
+    public int IssueId { get; set; }
 
-        [Required]
-        public string Content { get; set; } = string.Empty;
+    [Required]
+    [StringLength(500, ErrorMessage = "Feedback cannot exceed 500 characters.")]
+    public string Comment { get; set; } = string.Empty; // Initialize to empty string
 
-        public DateTime SubmittedOn { get; set; } = DateTime.UtcNow;
+    [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5.")]
+    public int Rating { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+    public DateTime SubmittedOn { get; set; } = DateTime.UtcNow;
 
-        // Relationship to Issue
-        public int IssueId { get; set; }
-        public Issue Issue { get; set; } = null!;
-    }
+    // Navigation properties
+    public ApplicationUser Tenant { get; set; } = new ApplicationUser(); // Initialize
+    public Issue Issue { get; set; } = new Issue(); // Initialize
+}
 }

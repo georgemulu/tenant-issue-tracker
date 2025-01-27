@@ -18,9 +18,9 @@
         @foreach (var feedback in Model.Feedbacks)
         {
             <tr>
-                <td>@feedback.TenantName</td>
-                <td>@feedback.ApartmentNumber</td>
-                <td>@feedback.Content</td>
+                <td>@feedback.Tenant.FirstName @feedback.Tenant.LastName</td> <!-- Use Tenant navigation property -->
+                <td>@feedback.Tenant.ApartmentNumber</td> <!-- Use Tenant navigation property -->
+                <td>@feedback.Comment</td> <!-- Use Comment property -->
                 <td>@feedback.SubmittedOn</td>
             </tr>
         }
