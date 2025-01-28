@@ -1,33 +1,40 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using TenantIssueTracker.Models;
+using Microsoft.AspNetCore.Identity;
+using TenantIssueTracker.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace TenantIssueTracker.Pages.Tenant
 {
     public class ViewIssuesModel : PageModel
     {
-        public List<Issue> Issues { get; set; } = new List<Issue>();
+        private readonly ApplicationDbContext _dbContext;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public void OnGet()
+        public ViewIssuesModel(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
-            // Fetch issues for the current user (example data)
-            Issues = new List<Issue>
+            _dbContext = dbContext;
+            _userManager = userManager;
+        }
+
+        public IList<Issue> Issues { get; set; } = new List<Issue>();
+
+        public async Task OnGetAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                new Issue
-                {
-                    Description = "Leaky faucet",
-                    Category = "Plumbing",
-                    ReportedDate = DateTime.Now.AddDays(-2),
-                    IsResolved = false
-                },
-                new Issue
-                {
-                    Description = "Broken window",
-                    Category = "Maintenance",
-                    ReportedDate = DateTime.Now.AddDays(-5),
-                    IsResolved = true
-                }
-            };
+                return;
+            }
+
+        // Fetch issues submitted by the current user
+            Issues = await _dbContext.Issues
+                .Where(i => i.ApplicationUserId == user.Id)
+                .OrderByDescending(i => i.ReportedDate)
+                .ToListAsync();
         }
     }
 }

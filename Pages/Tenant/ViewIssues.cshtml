@@ -10,27 +10,30 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Title</th>
             <th>Description</th>
             <th>Category</th>
             <th>Reported Date</th>
             <th>Status</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var issue in Model.Issues)
-{
-    <div class="card mb-3">
-        <div class="card-body">
-            <h5 class="card-title">@issue.Title</h5>
-            <p class="card-text">@issue.Description</p>
-            <p class="card-text"><small class="text-muted">Status: @(issue.IsResolved ? "Resolved" : "Pending")</small></p>
-
-            @if (issue.IsResolved)
-            {
-                <a asp-page="/Tenant/SubmitFeedback" asp-route-issueId="@issue.Id" class="btn btn-primary">Submit Feedback</a>
-            }
-        </div>
-    </div>
-}
+        {
+            <tr>
+                <td>@issue.Title</td>
+                <td>@issue.Description</td>
+                <td>@issue.Category</td>
+                <td>@issue.ReportedDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@(issue.IsResolved ? "Resolved" : "Pending")</td>
+                <td>
+                    @if (issue.IsResolved)
+                    {
+                        <a asp-page="/Tenant/SubmitFeedback" asp-route-issueId="@issue.Id" class="btn btn-primary">Submit Feedback</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
