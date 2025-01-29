@@ -30,8 +30,11 @@ namespace TenantIssueTracker.Pages.Tenant
 
         public async Task<IActionResult> OnPostAsync()
         {
+            _logger.LogInformation("OnPostAsync method called.");
+
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning("Model state is invalid.");
                 return Page();
             }
 
@@ -39,17 +42,20 @@ namespace TenantIssueTracker.Pages.Tenant
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                _logger.LogWarning("User not found.");
                 return NotFound("User not found.");
             }
+            _logger.LogInformation("User found: {UserId}", user.Id);
 
-            Issue.ApplicationUserId = user.Id; // Link the issue to the current user
-            Issue.ReportedDate = DateTime.UtcNow; // Set the reported date
+            // Link the issue to the current user
+            Issue.ApplicationUserId = user.Id;
+            Issue.ReportedDate = DateTime.UtcNow;
+            _logger.LogInformation("Issue assigned to user {UserId}: {IssueTitle}", user.Id, Issue.Title);
 
             // Save the issue to the database
             _dbContext.Issues.Add(Issue);
             await _dbContext.SaveChangesAsync();
-
-            _logger.LogInformation("Issue submitted by user {UserId}: {IssueTitle}", user.Id, Issue.Title);
+            _logger.LogInformation("Issue saved to the database: {IssueId}", Issue.Id);
 
             return RedirectToPage("/Tenant/ViewIssues"); // Redirect to the "View My Issues" page
         }
