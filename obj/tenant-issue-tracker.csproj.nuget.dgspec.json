@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj": {}
+    "C:\\Users\\Hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj": {
+    "C:\\Users\\Hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj",
+        "projectUniqueName": "C:\\Users\\Hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj",
         "projectName": "tenant-issue-tracker",
-        "projectPath": "C:\\Users\\hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj",
-        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hp\\tenant-issue-tracker\\obj\\",
+        "projectPath": "C:\\Users\\Hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj",
+        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Hp\\tenant-issue-tracker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -92,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
