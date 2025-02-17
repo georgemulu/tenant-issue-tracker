@@ -2,6 +2,7 @@
 @model TenantIssueTracker.Pages.Caretaker.ManageIssuesModel
 @{
     ViewData["Title"] = "Manage Issues";
+    Layout = "_Layout";
 }
 
 <div class="container">
@@ -37,18 +38,36 @@
             @foreach (var issue in Model.Issues)
             {
                 <tr>
-                    <td>@issue.ApplicationUser.FirstName @issue.ApplicationUser.LastName</td> <!-- Use ApplicationUser navigation property -->
-                    <td>@issue.ApplicationUser.ApartmentNumber</td> <!-- Use ApplicationUser navigation property -->
+                    <td>@issue.ApplicationUser.FirstName @issue.ApplicationUser.LastName</td>
+                    <td>@issue.ApplicationUser.ApartmentNumber</td>
                     <td>@issue.Description</td>
                     <td>@issue.Category</td>
                     <td>@issue.ReportedDate.ToShortDateString()</td>
-                    <td>@(issue.IsResolved ? "Resolved" : "Pending")</td>
+                    <td>
+                        @if (issue.IsResolved)
+                        {
+                            <span class="badge bg-success">Resolved</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning">Pending</span>
+                        }
+                    </td>
                     <td>
                         @if (!issue.IsResolved)
                         {
                             <form method="post" asp-page-handler="ResolveIssue" asp-route-id="@issue.Id">
+                                <div class="form-group">
+                                    <textarea asp-for="ResolutionComment" class="form-control" rows="2"
+                                        placeholder="Resolution comment"></textarea>
+                                    <span asp-validation-for="ResolutionComment" class="text-danger"></span>
+                                </div>
                                 <button type="submit" class="btn btn-success btn-sm">Mark Resolved</button>
                             </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Resolved on @issue.ResolvedDate?.ToShortDateString()</span>
                         }
                     </td>
                 </tr>
