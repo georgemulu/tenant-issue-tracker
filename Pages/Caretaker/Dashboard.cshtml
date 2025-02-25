@@ -8,7 +8,6 @@
 <div class="container">
     <h2>Caretaker Dashboard</h2>
 
-    <!-- Dashboard Statistics -->
     <div class="row mt-4">
         <div class="col-md-4">
             <div class="card text-white bg-primary mb-3">
@@ -36,38 +35,7 @@
         </div>
     </div>
 
-    <!-- Active Issues Section -->
-    <div class="row mt-4">
-        <div class="col">
-            <h3>Active Issues</h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Reported By</th>
-                        <th>Reported Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var issue in Model.ActiveIssues)
-                    {
-                        <tr>
-                            <td>@issue.Title</td>
-                            <td>@issue.Description</td>
-                            <td>@issue.ApplicationUser?.UserName</td>
-                            <td>@issue.ReportedDate.ToString("dd/MM/yyyy")</td>
-                            <td>
-                                <a asp-page="/Caretaker/ManageIssue" asp-route-id="@issue.Id" class="btn btn-primary btn-sm">Manage</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-
+ 
     <!-- Navigation Links -->
     <div class="row mt-4">
         <div class="col-md-6">
