@@ -17,15 +17,101 @@ html {
   min-height: 100%;
 }
 
+
+/* General Styles */
 body {
-  margin-bottom: 60px;
+  margin_bottom:60px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('image1.webp');
+  background-size: cover;
+  background-color: #072607;
 }
+
+/* Navbar */
+.navbar {
+  background-color: #072807; /* Green */
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: black !important;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: black !important;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Navbar Hover Effect */
+.navbar-nav .nav-item .nav-link:hover {
+  color: #81b381 !important; /* Light Green */
+}
+/* Buttons */
+.btn-primary {
+  background-color: #008000; /* Green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #004d00; /* Dark Green */
+}
+
+/* Logout Button */
+.navbar .btn-link {
+  color: white !important;
+  font-weight: 500;
+}
+
+/* Footer */
+footer {
+  background-color: #008000; /* Green */
+  color: white;
+  text-align: center;
+  margin-top:390px;
+  padding: 15px 0;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+.register-container{
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  height:100vh;
+}
+
+.register-box{
+  width:40%;
+  background:rgba(225, 225, 225,0.8);
+  padding:20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.login-links a{
+  color:black;
+  text-decoration:none;
+}
+.login-links a:hover{
+  color: black;
+  text-decoration: underline;
+}
+
+
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
 }
-
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+  text-align: start;
 }
