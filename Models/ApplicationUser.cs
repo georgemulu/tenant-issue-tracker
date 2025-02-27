@@ -7,19 +7,18 @@ namespace TenantIssueTracker.Models
     {
         [Required]
         [PersonalData]
-        public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty; // Initialize
 
         [Required]
         [PersonalData]
-        public string LastName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty; // Initialize
 
         [Required]
         [PersonalData]
-        public string ApartmentNumber { get; set; } = string.Empty;
+        public string ApartmentNumber { get; set; } = string.Empty; // Initialize
 
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty; // Initialize
 
-
-        public virtual ICollection<Issue> Issues { get; set; } = new List<Issue>();
+        public virtual ICollection<Issue> Issues { get; set; } = new List<Issue>(); // Initialize
     }
 }

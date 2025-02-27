@@ -1,25 +1,33 @@
 using System;
 using System.Collections.Generic;
-using TenantIssueTracker.Models; // Ensure this is included
+using System.ComponentModel.DataAnnotations;
 
 namespace TenantIssueTracker.Models
 {
     public class Issue
     {
         public int Id { get; set; }
-        public string TenantName { get; set; } = string.Empty;
-        public string ApartmentNumber { get; set; } = string.Empty;
+
+        [Required]
+        public string Title { get; set; } = string.Empty;
+
+        [Required]
         public string Description { get; set; } = string.Empty;
+
+        [Required]
         public string Category { get; set; } = string.Empty;
-        public DateTime ReportedDate { get; set; }
-        public bool IsResolved { get; set; }
-        public string? Feedback { get; set; }
 
-        // Relationship to ApplicationUser
+        [Required]
+        public DateTime ReportedDate { get; set; } = DateTime.UtcNow;
+
+        [Required]
+        public bool IsResolved { get; set; } = false;
+
+        // Foreign key to ApplicationUser
         public string ApplicationUserId { get; set; } = string.Empty;
-        public ApplicationUser ApplicationUser { get; set; } = null!;
 
-        // Relationship to Feedbacks
+        // Navigation properties
+        public ApplicationUser ApplicationUser { get; set; } = new ApplicationUser();
         public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }

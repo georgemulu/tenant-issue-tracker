@@ -1,0 +1,8 @@
+echo "bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache" >> .gitignore
+echo "*.deps.json
+*.staticwebassets.*.json" >> .gitignore
