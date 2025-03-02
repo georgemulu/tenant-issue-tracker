@@ -8090,19 +8090,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Elite X2 1013G3\\.nuget\\packages\\": {}
+    "C:\\Users\\Hp\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Elite X2 1013G3\\Documents\\.NET\\tenant-issue-tracker\\tenant-issue-tracker.csproj",
+      "projectUniqueName": "C:\\Users\\Hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj",
       "projectName": "tenant-issue-tracker",
-      "projectPath": "c:\\Users\\Elite X2 1013G3\\Documents\\.NET\\tenant-issue-tracker\\tenant-issue-tracker.csproj",
-      "packagesPath": "C:\\Users\\Elite X2 1013G3\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Elite X2 1013G3\\Documents\\.NET\\tenant-issue-tracker\\obj\\",
+      "projectPath": "C:\\Users\\Hp\\tenant-issue-tracker\\tenant-issue-tracker.csproj",
+      "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Hp\\tenant-issue-tracker\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Elite X2 1013G3\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"

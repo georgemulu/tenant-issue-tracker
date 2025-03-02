@@ -10,7 +10,7 @@
 <form method="post">
     <div class="form-group">
         <label asp-for="Issue.Title" class="control-label"></label>
-        <input asp-for="Issue.Title" class="form-control" />
+        <input asp-for="Issue.Title" class="form-control"/>
         <span asp-validation-for="Issue.Title" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -26,6 +26,21 @@
             <option value="Trash">Trash</option>
         </select>
         <span asp-validation-for="Issue.Category" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Issue.ApplicationUser.FirstName"></label>
+        <input asp-for="Issue.ApplicationUser.FirstName" class="form-control" />
+        <span asp-validation-for="Issue.ApplicationUser.FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Issue.ApplicationUser.LastName"></label>
+        <input asp-for="Issue.ApplicationUser.LastName" class="form-control" />
+        <span asp-validation-for="Issue.ApplicationUser.LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Issue.ApplicationUser.ApartmentNumber"></label>
+        <input asp-for="Issue.ApplicationUser.ApartmentNumber" class="form-control" />
+        <span asp-validation-for="Issue.ApplicationUser.ApartmentNumber" class="text-danger"></span>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Submit Issue</button>
