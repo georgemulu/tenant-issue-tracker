@@ -25,6 +25,14 @@ builder.Services.AddSingleton<IEmailSender, NullEmailSender>();
 // Add Razor Pages
 builder.Services.AddRazorPages();
 
+// Add session support
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+    options.Cookie.HttpOnly = true; // Secure the session cookie
+    options.Cookie.IsEssential = true; // Mark the session cookie as essential
+});
+
 var app = builder.Build();
 
 // Seed roles using the RoleSeeder
@@ -52,6 +60,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles(); // Enable serving static files
+app.UseSession(); // Enable sessions
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
