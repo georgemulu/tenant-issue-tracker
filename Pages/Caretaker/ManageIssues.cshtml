@@ -37,8 +37,8 @@
             @foreach (var issue in Model.Issues)
             {
                 <tr>
-                    <td>@issue.ApplicationUser.FirstName @issue.ApplicationUser.LastName</td>
-                    <td>@issue.ApplicationUser.ApartmentNumber</td>
+                    <td>@(issue.ApplicationUser?.FirstName ?? "Unknown") @(issue.ApplicationUser?.LastName ?? "User")</td>
+                    <td>@(issue.ApplicationUser?.ApartmentNumber ?? "N/A")</td>
                     <td>@issue.Description</td>
                     <td>@issue.Category</td>
                     <td>@issue.ReportedDate.ToShortDateString()</td>
@@ -50,6 +50,9 @@
                         else
                         {
                             <span class="badge bg-warning">Pending</span>
+                            <form method="post" asp-page-handler="Resolve" asp-route-id="@issue.Id" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-success ms-2">Mark as Resolved</button>
+                            </form>
                         }
                     </td>
                 </tr>
