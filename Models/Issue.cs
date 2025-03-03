@@ -27,7 +27,7 @@ namespace TenantIssueTracker.Models
         public string ApplicationUserId { get; set; } = string.Empty;
 
         // Navigation properties
-        public ApplicationUser ApplicationUser { get; set; } = new ApplicationUser();
+        public ApplicationUser? ApplicationUser { get; set; } = null;
         public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }

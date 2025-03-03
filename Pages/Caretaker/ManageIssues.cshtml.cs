@@ -29,5 +29,37 @@ namespace TenantIssueTracker.Pages.Caretaker
                 .OrderByDescending(i => i.ReportedDate) // Order by reported date (newest first)
                 .ToListAsync();
         }
+
+        // Handles marking an issue as resolved
+        public async Task<IActionResult> OnPostResolveAsync(int id)
+        {
+            var issue = await _dbContext.Issues.FindAsync(id);
+
+            if (issue == null)
+            {
+                TempData["Error"] = "Issue not found.";
+                return RedirectToPage();
+            }
+
+            if (issue.IsResolved)
+            {
+                TempData["Error"] = "This issue is already resolved.";
+                return RedirectToPage();
+            }
+
+            issue.IsResolved = true;
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                TempData["Success"] = "Issue marked as resolved.";
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Failed to update issue status.";
+            }
+
+            return RedirectToPage();
+        }
     }
 }

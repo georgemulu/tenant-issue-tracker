@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 using TenantIssueTracker.Data;
 using TenantIssueTracker.Models;
 
@@ -25,8 +26,20 @@ namespace TenantIssueTracker.Pages.Tenant
             _logger = logger;
         }
 
+        public class IssueInputModel
+        {
+            [Required]
+            public string Title { get; set; } = string.Empty;
+            
+            [Required]
+            public string Description { get; set; } = string.Empty;
+            
+            [Required]
+            public string Category { get; set; } = string.Empty;
+        }
+
         [BindProperty]
-        public Issue Issue { get; set; } = new();
+        public IssueInputModel IssueInput { get; set; } = new IssueInputModel();
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -35,6 +48,16 @@ namespace TenantIssueTracker.Pages.Tenant
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("Model state is invalid.");
+                
+                // Log each model state error to help diagnose the issue
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        _logger.LogWarning("Validation error: {ErrorMessage}", error.ErrorMessage);
+                    }
+                }
+                
                 return Page();
             }
 
@@ -47,15 +70,22 @@ namespace TenantIssueTracker.Pages.Tenant
             }
             _logger.LogInformation("User found: {UserId}", user.Id);
 
-            // Link the issue to the current user
-            Issue.ApplicationUserId = user.Id;
-            Issue.ReportedDate = DateTime.UtcNow;
-            _logger.LogInformation("Issue assigned to user {UserId}: {IssueTitle}", user.Id, Issue.Title);
+            // Create a new Issue object
+            var newIssue = new Issue
+            {
+                Title = IssueInput.Title,
+                Description = IssueInput.Description,
+                Category = IssueInput.Category,
+                ReportedDate = DateTime.UtcNow,
+                IsResolved = false,
+                ApplicationUserId = user.Id
+            };
 
             // Save the issue to the database
-            _dbContext.Issues.Add(Issue);
+            _dbContext.Issues.Add(newIssue);
+            
             await _dbContext.SaveChangesAsync();
-            _logger.LogInformation("Issue saved to the database: {IssueId}", Issue.Id);
+            _logger.LogInformation("Issue saved to the database: {IssueId}", newIssue.Id);
 
             return RedirectToPage("/Tenant/ViewIssues"); // Redirect to the "View My Issues" page
         }
