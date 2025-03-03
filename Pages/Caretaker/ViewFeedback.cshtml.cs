@@ -18,7 +18,9 @@ namespace TenantIssueTracker.Pages.Caretaker
 
         public async Task OnGetAsync()
         {
-            Feedbacks = await _dbContext.Feedbacks.ToListAsync();
+            Feedbacks = await _dbContext.Feedbacks
+                .Include(f => f.Tenant) // Include the Tenant navigation property
+                .ToListAsync();
         }
     }
 }

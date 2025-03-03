@@ -1,5 +1,6 @@
 @page
 @model TenantIssueTracker.Pages.Tenant.SubmitFeedbackModel
+@using System.Security.Claims
 
 @{
     ViewData["Title"] = "Submit Feedback";
@@ -11,6 +12,8 @@
     <hr />
 
     <form method="post">
+        <input type="hidden" asp-for="Feedback.TenantId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+
         <div class="form-group">
             <label asp-for="Feedback.IssueId" class="control-label">Issue ID</label>
             <input asp-for="Feedback.IssueId" class="form-control" readonly />

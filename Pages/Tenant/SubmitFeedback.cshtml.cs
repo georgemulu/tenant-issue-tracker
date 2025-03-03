@@ -50,14 +50,41 @@ namespace TenantIssueTracker.Pages.Tenant
 
         public async Task<IActionResult> OnPostAsync()
         {
+            Console.WriteLine("OnPostAsync triggered!");
+
             if (!ModelState.IsValid)
             {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+            }
+
+            if (Feedback == null)
+            {
+                Console.WriteLine("Feedback is null");
                 return Page();
             }
 
-            _dbContext.Feedbacks.Add(Feedback);
-            await _dbContext.SaveChangesAsync();
+            Console.WriteLine($"Feedback IssueId: {Feedback.IssueId}");
+            Console.WriteLine($"Feedback TenantId: {Feedback.TenantId}");
+            Console.WriteLine($"Feedback Rating: {Feedback.Rating}");
+            Console.WriteLine($"Feedback Comment: {Feedback.Comment}");
 
+            try
+            {
+                _dbContext.Feedbacks.Add(Feedback);
+                await _dbContext.SaveChangesAsync();
+                Console.WriteLine("Feedback successfully saved");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving feedback: {ex.Message}");
+                TempData["Error"] = "Failed to save feedback.";
+                return Page();
+            }
+
+            TempData["Success"] = "Feedback submitted successfully!";
             return RedirectToPage("/Tenant/ViewIssues");
         }
     }

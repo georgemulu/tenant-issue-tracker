@@ -18,10 +18,10 @@
         @foreach (var feedback in Model.Feedbacks)
         {
             <tr>
-                <td>@feedback.Tenant.FirstName @feedback.Tenant.LastName</td> <!-- Use Tenant navigation property -->
-                <td>@feedback.Tenant.ApartmentNumber</td> <!-- Use Tenant navigation property -->
-                <td>@feedback.Comment</td> <!-- Use Comment property -->
-                <td>@feedback.SubmittedOn</td>
+                <td>@(feedback.Tenant != null ? $"{feedback.Tenant.FirstName} {feedback.Tenant.LastName}" : "Unknown Tenant")</td>
+                <td>@(feedback.Tenant?.ApartmentNumber ?? "N/A")</td>
+                <td>@feedback.Comment</td>
+                <td>@feedback.SubmittedOn.ToString("g")</td>
             </tr>
         }
     </tbody>
