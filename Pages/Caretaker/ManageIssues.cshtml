@@ -46,6 +46,9 @@
                         @if (issue.IsResolved)
                         {
                             <span class="badge bg-success">Resolved</span>
+                            <form method="post" asp-page-handler="UndoResolve" asp-route-id="@issue.Id" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-warning ms-2">Undo</button>
+                            </form>
                         }
                         else
                         {
@@ -55,6 +58,7 @@
                             </form>
                         }
                     </td>
+
                 </tr>
             }
         </tbody>

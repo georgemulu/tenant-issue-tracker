@@ -61,5 +61,38 @@ namespace TenantIssueTracker.Pages.Caretaker
 
             return RedirectToPage();
         }
+
+        // Handles undoing the resolved status of an issue
+        public async Task<IActionResult> OnPostUndoResolveAsync(int id)
+        {
+            var issue = await _dbContext.Issues.FindAsync(id);
+
+            if (issue == null)
+            {
+                TempData["Error"] = "Issue not found.";
+                return RedirectToPage();
+            }
+
+            if (!issue.IsResolved)
+            {
+                // Fixing the incorrect message here
+                TempData["Error"] = "This issue hasn't been resolved yet.";
+                return RedirectToPage();
+            }
+
+            issue.IsResolved = false;
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                TempData["Success"] = "Issue status reverted to unresolved.";
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Failed to update issue status.";
+            }
+
+            return RedirectToPage();
+        }
     }
 }
