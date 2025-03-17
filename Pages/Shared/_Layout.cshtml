@@ -48,6 +48,12 @@
                                     <a class="nav-link" href="/Caretaker/ManageIssues">View All Issues</a>
                                 </li>
                             }
+                            else if (roles.Contains("Admin"))
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link" href="/Admin/ManageUsers">Manage Users</a>
+                                </li>
+                            }
                         }
 
                         <li class="nav-item">
