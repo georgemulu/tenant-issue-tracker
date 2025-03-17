@@ -7,13 +7,11 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
 using TenantIssueTracker.Models;
 
 namespace tenant_issue_tracker.Areas.Identity.Pages.Account
@@ -41,7 +39,6 @@ namespace tenant_issue_tracker.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
 
-            // Initialize properties to avoid null reference warnings
             Input = new InputModel();
             ReturnUrl = string.Empty;
             ExternalLogins = new List<AuthenticationScheme>();
@@ -88,10 +85,6 @@ namespace tenant_issue_tracker.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; } = string.Empty;
-
-            [Required]
-            [Display(Name = "Role")]
-            public string Role { get; set; } = string.Empty; // Add this property
         }
 
         public async Task OnGetAsync(string? returnUrl = null)
@@ -108,7 +101,6 @@ namespace tenant_issue_tracker.Areas.Identity.Pages.Account
             {
                 var user = CreateUser() ?? throw new InvalidOperationException("User creation failed");
 
-                // Set the user properties
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.PhoneNumber = Input.PhoneNumber;
@@ -122,8 +114,8 @@ namespace tenant_issue_tracker.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    // Assign the selected role
-                    await _userManager.AddToRoleAsync(user, Input.Role);
+                    // Assign "Tenant" role by default
+                    await _userManager.AddToRoleAsync(user, "Tenant");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -150,16 +142,7 @@ namespace tenant_issue_tracker.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-
-                        // Redirect based on the selected role
-                        if (Input.Role == "Tenant")
-                        {
-                            return LocalRedirect("/Tenant/SubmitIssue");
-                        }
-                        else if (Input.Role == "Caretaker")
-                        {
-                            return LocalRedirect("/Caretaker/Dashboard");
-                        }
+                        return LocalRedirect("/Tenant/SubmitIssue");
                     }
                 }
                 foreach (var error in result.Errors)
@@ -171,19 +154,7 @@ namespace tenant_issue_tracker.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private ApplicationUser CreateUser()
-        {
-            try
-            {
-                return Activator.CreateInstance<ApplicationUser>();
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
-                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
-            }
-        }
+        private ApplicationUser CreateUser() => Activator.CreateInstance<ApplicationUser>();
 
         private IUserEmailStore<ApplicationUser> GetEmailStore()
         {

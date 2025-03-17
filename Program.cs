@@ -41,7 +41,8 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        await RoleSeeder.SeedRoles(roleManager); // Use the RoleSeeder class
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        await RoleSeeder.SeedRoles(roleManager,userManager); // Use the RoleSeeder class
     }
     catch (Exception ex)
     {
