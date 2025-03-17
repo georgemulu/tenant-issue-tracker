@@ -1,0 +1,66 @@
+@page
+@model TenantIssueTracker.Pages.Admin.ManageUsersModel
+@{
+    ViewData["Title"] = "Manage Users";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h2 class="mb-4">Manage Users</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@($"{user.FirstName} {user.LastName}")</td>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                    <td>
+                        @if (user.Role != "Admin")
+                        {
+                            <div class="d-flex gap-2"> <!-- Bootstrap flexbox for layout -->
+                                <form method="post">
+                                    <input type="hidden" name="userId" value="@user.Id" />
+                                    <div class="input-group">
+                                        <select name="newRole" class="form-select">
+                                            <option value="Tenant" selected="@(user.Role == "Tenant")">Tenant</option>
+                                            <option value="Caretaker" selected="@(user.Role == "Caretaker")">Caretaker</option>
+                                        </select>
+                                        <button type="submit" asp-page-handler="ChangeRole" class="btn btn-primary">Change</button>
+                                    </div>
+                                </form>
+
+                                <form method="post" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                    <input type="hidden" name="userId" value="@user.Id" />
+                                    <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Admin (Cannot modify)</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
